@@ -2387,6 +2387,8 @@ namespace rsx
 				break;
 			}
 		}
+		else
+			value = g_cfg.video.zcull_default_value;
 
 		vm::_ref<atomic_t<CellGcmReportData>>(sink).store({ timestamp(), value, 0});
 	}
