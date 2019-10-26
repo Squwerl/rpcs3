@@ -515,6 +515,7 @@ struct cfg_root : cfg::node
 			node_perf_overlay(cfg::node* _this) : cfg::node(_this, "Performance Overlay") {}
 
 			cfg::_bool perf_overlay_enabled{this, "Enabled", false};
+			cfg::_bool frametime_counter{ this, "Enables or disables the frametime counter", false };
 			cfg::_bool framerate_graph_enabled{ this, "Enable Framerate Graph", false };
 			cfg::_bool frametime_graph_enabled{ this, "Enable Frametime Graph", false };
 			cfg::_enum<detail_level> level{this, "Detail level", detail_level::medium};

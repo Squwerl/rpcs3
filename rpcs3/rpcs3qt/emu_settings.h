@@ -86,6 +86,7 @@ public:
 
 		// Performance Overlay
 		PerfOverlayEnabled,
+		PerfFrameTimeEnabled,
 		PerfOverlayFramerateGraphEnabled,
 		PerfOverlayFrametimeGraphEnabled,
 		PerfOverlayDetailLevel,
@@ -315,6 +316,7 @@ private:
 
 		// Performance Overlay
 		{ PerfOverlayEnabled,               { "Video", "Performance Overlay", "Enabled" } },
+		{ PerfFrameTimeEnabled,             { "Video", "Performance Overlay", "Enables or disables the frametime counter" } },
 		{ PerfOverlayFramerateGraphEnabled, { "Video", "Performance Overlay", "Enable Framerate Graph" } },
 		{ PerfOverlayFrametimeGraphEnabled, { "Video", "Performance Overlay", "Enable Frametime Graph" } },
 		{ PerfOverlayDetailLevel,           { "Video", "Performance Overlay", "Detail level" } },

@@ -432,6 +432,7 @@ namespace rsx
 
 				auto& perf_settings = g_cfg.video.perf_overlay;
 				perf_overlay->set_detail_level(perf_settings.level);
+				perf_overlay->set_frametime_counter(perf_settings.frametime);
 				perf_overlay->set_position(perf_settings.position);
 				perf_overlay->set_update_interval(perf_settings.update_interval);
 				perf_overlay->set_font(perf_settings.font);

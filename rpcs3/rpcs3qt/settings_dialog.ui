@@ -2163,6 +2163,13 @@
                <widget class="QComboBox" name="perfOverlayDetailLevel"/>
               </item>
               <item>
+               <widget class="QCheckBox" name="frametimeEnabled">
+                <property name="text">
+                 <string>Enable frametime indicator</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QLabel" name="label_position">
                 <property name="text">
                  <string>Position:</string>
