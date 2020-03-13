@@ -1,7 +1,10 @@
 RPCS3
 =====
+This branch contains ZeroX Changeset.
+[YouTube](https://www.youtube.com/user/ZEROx2085/) 
+[GitHub](https://github.com/Xcedf)
 
-[![Build Status](https://travis-ci.org/RPCS3/rpcs3.svg?branch=master)](https://travis-ci.org/RPCS3/rpcs3)
+<!--[![Build Status](https://travis-ci.org/RPCS3/rpcs3.svg?branch=master)](https://travis-ci.org/RPCS3/rpcs3)
 [![Build Status](https://dev.azure.com/nekotekina/nekotekina/_apis/build/status/RPCS3.rpcs3?branchName=master)](https://dev.azure.com/nekotekina/nekotekina/_build/latest?definitionId=4&branchName=master)
 
 The world's first free and open-source PlayStation 3 emulator/debugger, written in C++ for Windows and Linux.
@@ -36,4 +39,4 @@ Don't forget to have your graphics driver up to date and to install the [Visual 
 
 ## License
 
-Most files are licensed under the terms of GNU GPLv2 License; see LICENSE file for details. Some files may be licensed differently; check appropriate file headers for details.
+Most files are licensed under the terms of GNU GPLv2 License; see LICENSE file for details. Some files may be licensed differently; check appropriate file headers for details.-->
