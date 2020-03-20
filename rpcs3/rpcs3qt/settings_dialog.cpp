@@ -1312,7 +1312,7 @@ settings_dialog::settings_dialog(std::shared_ptr<gui_settings> gui_settings, std
 	SubscribeTooltip(ui->perfOverlayMarginY, tooltips.settings.perf_overlay_margin_y);
 
 	// Global settings (gui_settings)
-	if (!game)
+	if (game)
 	{
 		SubscribeTooltip(ui->gs_resizeOnBoot, tooltips.settings.resize_on_boot);
 
