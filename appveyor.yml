@@ -81,11 +81,10 @@ before_build:
     7z x glslang.7z -aos -o".\lib\$env:CONFIGURATION-$env:PLATFORM" | out-null
     7z x msvc2017_64.7z -aos -o"C:\Qt\5.13" | out-null
     if (!(test-path vulkan-sdk.exe))
-        foreach ($url in $VULKAN_SDK_URLS) {
+        foreach ($url in $VULKAN_SDK_URLS)
             irm $url -outfile vulkan-sdk.exe
                 echo "Successfully downloaded and verified vulkan-sdk.exe!"
                 break
-    }
     .\vulkan-sdk.exe /S
 
 after_build:
