@@ -80,21 +80,7 @@ before_build:
     7z x llvmlibs.7z -aos -o"." | out-null
     7z x glslang.7z -aos -o".\lib\$env:CONFIGURATION-$env:PLATFORM" | out-null
     7z x msvc2017_64.7z -aos -o"C:\Qt\5.13" | out-null
-    if (!(test-path vulkan-sdk.exe))
-    {
-        foreach ($url in $VULKAN_SDK_URLS) {
-            irm $url -outfile vulkan-sdk.exe
-            if ($env:VULKAN_SDK_SHA -eq $(Get-FileHash .\vulkan-sdk.exe).Hash)
-            {
-                echo "Successfully downloaded and verified vulkan-sdk.exe!"
-                break
-            }
-            else
-            {
-                echo "Invalid file hash, Vulkan SDK Setup was possibly tampered with, retrying with a different mirror..."
-            }
-        }
-    }
+    if (!(test-path vulkan-sdk.exe)) { irm $url -outfile vulkan-sdk.exe }
     .\vulkan-sdk.exe /S
 
 after_build:
