@@ -86,8 +86,6 @@ before_build:
             irm $url -outfile vulkan-sdk.exe
                 echo "Successfully downloaded and verified vulkan-sdk.exe!"
                 break
-            }
-        }
     }
     .\vulkan-sdk.exe /S
 
