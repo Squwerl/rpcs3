@@ -16,7 +16,7 @@ environment:
 cache:
 - glslang.7z -> appveyor.yml
 - compat_database.dat
-- VulkanSDK-1.1.106.0-Installer.exe -> appveyor.yml
+- vulkan-sdk.exe -> appveyor.yml
 - msvc2017_64.7z -> appveyor.yml
 
 install:
@@ -70,14 +70,26 @@ build:
 
 before_build:
 - ps: | # initialize mirror arrays and fetch precompiled build dependencies
+    $VULKAN_SDK_URLS = @(
+        $env:VULKAN_SDK_URL;
+        "$($env:VULKAN_SDK_URL)?Human=true";
+    )
     if (!(test-path llvmlibs.7z)) { irm $env:LLVMLIBS -outfile llvmlibs.7z }
     if (!(test-path glslang.7z)) { irm $env:GLSLANG -outfile glslang.7z }
     if (!(test-path msvc2017_64.7z)) { irm $env:QT_URL -outfile msvc2017_64.7z }
     7z x llvmlibs.7z -aos -o"." | out-null
     7z x glslang.7z -aos -o".\lib\$env:CONFIGURATION-$env:PLATFORM" | out-null
     7z x msvc2017_64.7z -aos -o"C:\Qt\5.13" | out-null
-    .\VulkanSDK-1.1.106.0-Installer.exe /S
-
+    if (!(test-path vulkan-sdk.exe))
+    {
+        foreach ($url in $VULKAN_SDK_URLS) {
+            irm $url -outfile vulkan-sdk.exe
+                echo "Successfully downloaded and verified vulkan-sdk.exe!"
+                break
+            }
+        }
+    }
+    .\vulkan-sdk.exe /S
 
 after_build:
 - ps: | # remove unnecessary files
