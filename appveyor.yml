@@ -16,7 +16,7 @@ environment:
 cache:
 - glslang.7z -> appveyor.yml
 - compat_database.dat
-- vulkan-sdk.exe -> appveyor.yml
+- VulkanSDK-1.1.106.0-Installer.exe -> appveyor.yml
 - msvc2017_64.7z -> appveyor.yml
 
 install:
