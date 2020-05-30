@@ -2,8 +2,7 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
+#    branches: master
     paths-ignore:
       - '.github/*'
       - '.github/ISSUE_TEMPLATE/**'
@@ -12,8 +11,7 @@ on:
       - 'docs/**'
       - 'LICENSE'
   pull_request:
-    branches:
-      - master
+#    branches: master
     paths-ignore:
       - '.github/*'
       - '.github/ISSUE_TEMPLATE/**'
