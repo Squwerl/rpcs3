@@ -1,111 +1,92 @@
 name: CI
-# This is copypasta from azure-pipeline.yml, needs fixing!
+
 on:
   push:
+    branches:
+      - master
     paths-ignore:
-      - .github/CONTRIBUTING.md
-      - .github/FUNDING.md
-      - .github/ISSUE_TEMPLATE/**
-      - docs/**
-      - .appveyor.yml
-      - .travis.yml
-      - LICENSE
-      - README.md
+      - '.github/*'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '*.yml'
+      - '*.md'
+      - 'docs/**'
+      - 'LICENSE'
   pull_request:
+    branches:
+      - master
     paths-ignore:
-      - .github/CONTRIBUTING.md
-      - .github/FUNDING.md
-      - .github/ISSUE_TEMPLATE/**
-      - docs/**
-      - .appveyor.yml
-      - .travis.yml
-      - LICENSE
-      - README.md
+      - '.github/*'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '*.yml'
+      - '*.md'
+      - 'docs/**'
+      - 'LICENSE'
 
 jobs:
-- job: Linux_Build
-  strategy:
-    matrix:
-      Clang:
-        COMPILER: clang
-      GCC:
-        COMPILER: gcc
-        DEPLOY_APPIMAGE: true
-  variables:
-    CCACHE_DIR: $(Pipeline.Workspace)/ccache
-    IS_AZURE: true
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - task: Cache@2
-    inputs:
-      key: ccache | $(Agent.OS) | $(COMPILER)
-      path: $(CCACHE_DIR)
-    displayName: ccache
+  Build_Linux:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        COMPILER: [clang, gcc]
+        include:
+          - COMPILER: gcc
+            DEPLOY_APPIMAGE: true
+    env:
+#      CCACHE_DIR: /ccache
+      BUILD_ARTIFACTSTAGINGDIRECTORY: /artifacts
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Docker setup and build
+        run: |
+          mkdir /artifacts
+          docker pull --quiet rpcs3/rpcs3-travis-xenial:1.2
+          docker run                                           \
+            -v $(pwd):/rpcs3                                   \
+            --env-file .travis/travis.env                      \
+            -v $CCACHE_DIR:/root/.ccache                       \
+            -v $BUILD_ARTIFACTSTAGINGDIRECTORY:/root/artifacts \
+            rpcs3/rpcs3-travis-xenial:1.2                      \
+            /bin/bash -ex /rpcs3/.ci/build-linux.bash
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Linux
+          path: ${{ env.BUILD_ARTIFACTSTAGINGDIRECTORY }}
 
-  - bash: |
-      docker pull --quiet rpcs3/rpcs3-travis-xenial:1.4
-      docker run                      \
-        -v $(pwd):/rpcs3              \
-        --env-file .ci/travis.env \
-        -v $CCACHE_DIR:/root/.ccache  \
-        -v $BUILD_ARTIFACTSTAGINGDIRECTORY:/root/artifacts \
-        rpcs3/rpcs3-travis-xenial:1.4 \
-        /rpcs3/.ci/build-linux.sh
-    displayName: Docker setup and build
-  - publish: $(Build.ArtifactStagingDirectory)
-    condition: eq(variables['COMPILER'], 'gcc')
-
-- job: Windows_Build
-  variables:
-    COMPILER: msvc
-    QT_VER: '5.14.1'
-    QT_DATE: '202001240957'
-    QTDIR: C:\Qt\$(QT_VER)\msvc2017_64
-    VULKAN_VER: '1.2.135.0'
-    VULKAN_SDK_SHA: '181b3353612c8b0fc5e1857b652d62140191ae42b98f2f0d532cf349cebfd8c6'
-    VULKAN_SDK: C:\VulkanSDK\$(VULKAN_VER)
-    CACHE_DIR: ./cache
-
-  pool:
-    vmImage: "windows-latest"
-
-  steps:
-    - bash: .ci/get_keys-windows.sh
-      displayName: Get Cache Keys
-
-    - task: Cache@2
-      inputs:
-        key: $(Agent.OS) | $(COMPILER) | "$(QT_VER)" | $(VULKAN_SDK_SHA) | llvm.lock | glslang.lock
-        path: $(CACHE_DIR)
-        restoreKeys: |
-          $(Agent.OS) | $(COMPILER)
-      displayName: Cache
-
-    - bash: .ci/setup-windows.sh
-      displayName: Download and unpack dependencies
-
-    - bash: .ci/export-azure-vars.sh
-      displayName: Export Variables
-
-    - task: MSBuild@1
-      inputs:
-        solution: './Vulkan/spirv-tools-build/spirv-tools-build.vcxproj'
-        maximumCpuCount: true
-        platform: x64
-        configuration: 'Release'
-      displayName: Compile SPIRV-Tools
-
-    - task: VSBuild@1
-      inputs:
-        solution: 'rpcs3.sln'
-        maximumCpuCount: true
-        platform: x64
-        configuration: 'Release - LLVM'
-      displayName: Compile RPCS3
-
-    - bash: .ci/deploy-windows.sh
-      displayName: Pack up build artifacts
-
-    - publish: $(Build.ArtifactStagingDirectory)
-      artifact: Windows App Bundle
+  Build_Windows:
+    runs-on: windows-latest
+    env:
+      COMPILER: msvc
+      QT_VER: 5.14.1
+      QT_DATE: 202001240957
+      VULKAN_VER: 1.1.126.0
+      VULKAN_SDK_SHA: ee86f25580b550390ce46508415e744d62e87e9c0de6cd299998058253a2a4ba
+#      CACHE_DIR: ./cache
+      POWERSHELL_TELEMETRY_OPTOUT: 1
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Download and unpack dependencies
+        run: .ci/setup-windows.sh
+      - uses: jurplel/install-qt-action@v2
+        with:
+          version: ${{ env.QT_VER }}
+      - name: Export variables
+        run: |
+          .ci/export-azure-vars.sh
+          echo '::set-env name=QTDIR::$env:Qt5_Dir'
+      - uses: microsoft/setup-msbuild@v1
+      - name: Compile SPIRV-Tools
+        shell: powershell
+        run: msbuild /m /p:"Platform=x64;Configuration=Release" Vulkan\spirv-tools-build\spirv-tools-build.vcxproj
+      - name: Compile RPCS3
+        shell: powershell
+        run: msbuild /m /p:"Platform=x64;Configuration=Release - LLVM" rpcs3.sln
+      - name: Pack up build artifacts
+        run: .ci/deploy-windows.sh
