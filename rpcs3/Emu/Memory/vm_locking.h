@@ -1,6 +1,7 @@
 #pragma once
 
 #include "vm.h"
+#include "Utilities/bit_set.h"
 
 class cpu_thread;
 class shared_mutex;
@@ -27,7 +28,15 @@ namespace vm
 
 	class reader_lock final
 	{
-		bool m_upgraded = false;
+		enum class flags_t
+		{
+			upgrade,
+			mem,
+
+			__bitset_enum_max
+		};
+
+		bs_t<flags_t> m_flags = {};
 
 	public:
 		reader_lock(const reader_lock&) = delete;
@@ -40,6 +49,8 @@ namespace vm
 
 	struct writer_lock final
 	{
+		const u32 addr;
+
 		writer_lock(const writer_lock&) = delete;
 		writer_lock& operator=(const writer_lock&) = delete;
 		writer_lock(u32 addr = 0);

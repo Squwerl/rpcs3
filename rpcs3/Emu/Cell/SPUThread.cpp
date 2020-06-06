@@ -1830,7 +1830,6 @@ void spu_thread::do_putlluc(const spu_mfc_cmd& args)
 				// TODO: vm::check_addr
 				vm::writer_lock lock(addr);
 				mov_rdata(super_data, to_write);
-				res.release(res.load() + 127);
 			}
 
 			if (render) render->unpause();
@@ -2166,11 +2165,9 @@ bool spu_thread::process_mfc_cmd()
 				if (cmp_rdata(rdata, super_data))
 				{
 					mov_rdata(super_data, to_write);
-					res.release(rtime + 128);
 					return true;
 				}
 
-				res.release(rtime);
 				return false;
 			}();
 
