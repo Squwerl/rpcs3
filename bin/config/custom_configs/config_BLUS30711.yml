@@ -1,0 +1,105 @@
+Core:
+  PPU Decoder: Recompiler (LLVM)
+  PPU Threads: 2
+  PPU Debug: false
+  Save LLVM logs: false
+  Use LLVM CPU: ""
+  Max LLVM Compile Threads: 0
+  Enable thread scheduler: true
+  Set DAZ and FTZ: false
+  SPU Decoder: Recompiler (LLVM)
+  Lower SPU thread priority: false
+  SPU Debug: false
+  Preferred SPU Threads: 0
+  SPU delay penalty: 3
+  SPU loop detection: true
+  Max SPURS Threads: 6
+  SPURS Urgent queue size: 0
+  SPU Block Size: Safe
+  Accurate GETLLAR: false
+  Accurate PUTLLUC: false
+  SPU Verification: true
+  SPU Cache: true
+  SPU Profiler: false
+  Enable TSX: Disabled
+  Accurate xfloat: false
+  Approximate xfloat: false
+  FCGT accuracy: Approximate
+  FCMGT accuracy: Default
+  FM accuracy: Approximate
+  FNMS accuracy: Approximate
+  FMA accuracy: Default
+  FMS accuracy: Default
+  Debug Console Mode: false
+  Lib Loader: Load liblv2.sprx only
+  Hook static functions: false
+  Load libraries:
+    []
+  HLE lwmutex: false
+  Clocks scale: 100
+  Sleep Timers Accuracy: Usleep Only
+VFS:
+  Enable /host_root/: false
+  Initialize Directories: true
+Video:
+  Renderer: Vulkan
+  Resolution: 1280x720
+  Aspect ratio: 16:9
+  Frame limit: Off
+  MSAA: Auto
+  Write Color Buffers: true
+  Write Depth Buffer: false
+  Read Color Buffers: false
+  Read Depth Buffer: false
+  Log shader programs: false
+  VSync: false
+  Debug output: false
+  Debug overlay: false
+  Use Legacy OpenGL Buffers: false
+  Use GPU texture scaling: false
+  Stretch To Display Area: false
+  Force High Precision Z buffer: false
+  Strict Rendering Mode: false
+  Disable ZCull Occlusion Queries: true
+  Disable Vertex Cache: false
+  Disable FIFO Reordering: false
+  Enable Frame Skip: false
+  Force CPU Blit: false
+  Disable On-Disk Shader Cache: false
+  Disable Vulkan Memory Allocator: false
+  Use full RGB output range: true
+  Disable Asynchronous Shader Compiler: false
+  Strict Texture Flushing: false
+  Disable native float16 support: false
+  Multithreaded RSX: false
+  Relaxed ZCULL Sync: true
+  ZCull query default value: 2
+  Consecutive Frames To Draw: 1
+  Consecutive Frames To Skip: 1
+  Resolution Scale: 100
+  Anisotropic Filter Override: 0
+  Minimum Scalable Dimension: 16
+  Driver Recovery Timeout: 1000000
+  Vblank Rate: 60
+  Vulkan:
+    Force FIFO present mode: false
+    Force primitive restart flag: false
+Audio:
+  Renderer: XAudio2
+  Dump to file: false
+  Convert to 16 bit: false
+  Downmix to Stereo: true
+  Start Threshold: 1
+  Master Volume: 100
+  Enable Buffering: true
+  Desired Audio Buffer Duration: 50
+  Sampling Period Multiplier: 100
+  Enable Time Stretching: false
+  Time Stretching Threshold: 75
+Input/Output:
+  Keyboard: "Null"
+  Mouse: Basic
+  Pad: Keyboard
+  Camera: "Null"
+  Camera type: Unknown
+  Move: "Null"
