@@ -63,7 +63,7 @@ jobs:
       VULKAN_VER: 1.2.135.0
       VULKAN_SDK_SHA: 181b3353612c8b0fc5e1857b652d62140191ae42b98f2f0d532cf349cebfd8c6
       VULKAN_SDK: C:\VulkanSDK\$(VULKAN_VER)
-#      CACHE_DIR: ./cache
+      CACHE_DIR: ./cache
       POWERSHELL_TELEMETRY_OPTOUT: 1
     defaults:
       run:
