@@ -100,3 +100,16 @@ jobs:
       condition: succeeded()
       artifact: RPCS3 for Windows
 
+    - task: GitHubRelease@1
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/mgs4-new')
+      inputs:
+        gitHubConnection: 'op4ticg235hnirwvqkrqtax33mc4mcaylxcx3doks7daaisarjsq'
+        repositoryName: 'illusion0001/rpcs3'
+        releaseNotesFilePath: 'GitHubReleaseMessage.txt'
+        action: 'create'
+        target: '7d09e3be30805911226241afbb14f8cdc2eb054e'
+        tagSource: 'userSpecifiedTag'
+        tag: 'build-$(Build.SourceVersion)'
+        title: $(AVVER)
+        addChangeLog: false
+      displayName: Push build to GitHub
