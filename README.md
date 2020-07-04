@@ -1,8 +1,10 @@
 RPCS3
 =====
+[eladash's ruivsh](https://github.com/elad335/rpcs3/tree/ruivsh) on CI
 
-[![Travis (.org) branch](https://img.shields.io/travis/RPCS3/rpcs3/master?label=Travis%20CI&logo=travis)](https://travis-ci.org/RPCS3/rpcs3)
-[![Azure Build Status](https://dev.azure.com/nekotekina/nekotekina/_apis/build/status/RPCS3.rpcs3?branchName=master)](https://dev.azure.com/nekotekina/nekotekina/_build?definitionId=4&branchName=master)
+[![Build Status](https://dev.azure.com/illusion9804/rpcs3/_apis/build/status/illusion0001.rpcs3?branchName=elad-rulvsh)](https://dev.azure.com/illusion9804/rpcs3/_build/latest?definitionId=3&branchName=elad-rulvsh)
+
+<!--[![Travis (.org) branch](https://img.shields.io/travis/RPCS3/rpcs3/master?label=Travis%20CI&logo=travis)](https://travis-ci.org/RPCS3/rpcs3)
 [![Cirrus CI - Base Branch Build Status](https://img.shields.io/cirrus/github/RPCS3/rpcs3?label=Cirrus%20CI%20(FreeBSD)&logo=cirrus-ci)](https://cirrus-ci.com/github/RPCS3/rpcs3)
 [![RPCS3 discord server](https://img.shields.io/discord/272035812277878785?color=%237289DA&label=RPCS3%20Discord&logo=discord&logoColor=white)](https://discord.me/rpcs3)
 
@@ -38,4 +40,4 @@ Don't forget to have your graphics driver up to date and to install the [Visual 
 
 ## License
 
-Most files are licensed under the terms of GNU GPLv2 License; see LICENSE file for details. Some files may be licensed differently; check appropriate file headers for details.
+Most files are licensed under the terms of GNU GPLv2 License; see LICENSE file for details. Some files may be licensed differently; check appropriate file headers for details.-->
