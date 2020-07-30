@@ -1138,7 +1138,7 @@ void ppu_load_exec(const ppu_exec_object& elf)
 		applied += g_fxo->get<patch_engine>()->apply(Emu.GetTitleID() + '-' + hash, vm::g_base_addr);
 	}
 
-	ppu_loader.success("PPU executable hash: %s (<- %u)", hash, applied);
+	ppu_loader.always("PPU executable hash: %s (<- %u)", hash, applied);
 
 	// Initialize HLE modules
 	ppu_initialize_modules(link);
@@ -1213,7 +1213,7 @@ void ppu_load_exec(const ppu_exec_object& elf)
 			}
 		}
 
-		ppu_loader.success("SPU executable hash: %s (<- %u)%s", hash, applied, dump);
+		ppu_loader.always("SPU executable hash: %s (<- %u)%s", hash, applied, dump);
 
 	}
 
