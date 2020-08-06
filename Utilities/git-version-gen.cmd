@@ -69,7 +69,7 @@ for /F %%I IN ('call %GIT% rev-list HEAD --count') do set COMMIT_COUNT=%%I
 	rem // Get last commit (shortened) and concat after commit count in GIT_VERSION
 	for /F %%I IN ('call %GIT% rev-parse --short^=8 HEAD') do set GIT_VERSION=%COMMIT_COUNT%-%%I
 
-	for /F %%I IN ('call %GIT% rev-parse --abbrev-ref HEAD') do set GIT_BRANCH=%%I
+	rem // for /F %%I IN ('call %GIT% rev-parse --abbrev-ref HEAD') do set GIT_BRANCH=%%I
 
 	set GIT_FULL_BRANCH=local_build
 )
