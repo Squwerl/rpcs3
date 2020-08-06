@@ -64,14 +64,14 @@ for /F %%I IN ('call %GIT% rev-list HEAD --count') do set COMMIT_COUNT=%%I
 	rem // SYSTEM_PULLREQUEST_SOURCEBRANCH will look like "master"
 	rem // BUILD_SOURCEBRANCHNAME will look like "master"
 	rem // See https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables
-	set GIT_FULL_BRANCH=%BUILD_REPOSITORY_NAME%/%BUILD_SOURCEBRANCHNAME%
+	set GIT_BRANCH=%BUILD_REPOSITORY_NAME%/%BUILD_SOURCEBRANCHNAME%
 
 	rem // Get last commit (shortened) and concat after commit count in GIT_VERSION
 	for /F %%I IN ('call %GIT% rev-parse --short^=8 HEAD') do set GIT_VERSION=%COMMIT_COUNT%-%%I
 
 	for /F %%I IN ('call %GIT% rev-parse --abbrev-ref HEAD') do set GIT_BRANCH=%%I
 
-	set GIT_BRANCH=local_build
+	set GIT_FULL_BRANCH=local_build
 )
 
 rem // Echo obtained GIT_VERSION for debug purposes if needed
