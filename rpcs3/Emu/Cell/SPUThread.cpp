@@ -1094,6 +1094,8 @@ std::string spu_thread::dump_misc() const
 	return ret;
 }
 
+LOG_CHANNEL(spu_dmpr, "SPU Dumper");
+
 void spu_thread::dump_thread()
 {
 	spu_thread *cpu = this;
@@ -1122,7 +1124,7 @@ void spu_thread::dump_thread()
 
 	if (fs::is_file(path))
 	{
-		LOG_NOTICE(LOADER, "Image %s already exists", filename);
+		spu_dmpr.notice("Image %s already exists", filename);
 		return;
 	}
 
@@ -1146,11 +1148,11 @@ void spu_thread::dump_thread()
 
 		out.write(&daseg, sizeof(sys_spu_segment));
 		out.write(vm::g_base_addr + cpu->offset, 256 * 1024);
-		LOG_SUCCESS(LOADER, "Saved spu program to %s", filename);
+		spu_dmpr.success("Saved spu program to %s", filename);
 	}
 	else
 	{
-		LOG_ERROR(LOADER, "Error creating %s", path);
+		spu_dmpr.error("Error creating %s", path);
 	}
 }
 
